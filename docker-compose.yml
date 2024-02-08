@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - test_vol:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: restaurant_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - test_vol:/app/data
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/restaurant_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "root"
+
+volumes:
+  test_vol:
