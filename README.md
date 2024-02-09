@@ -58,16 +58,9 @@ localhost:8080/swagger-ui/index.html
 
 No additional installation steps are required as the dependencies are managed by Gradle.
 
-Run tests
+
 To run tests, execute the following command:
 ./gradlew test
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-👥 Authors <a name="authors"></a>
-
-    GitHub: @WalidAmmarAli
-    Twitter: @AmmarAli3111
-    LinkedIn: Ammar Ali
 
 📝 License <a name="license"></a>
 
