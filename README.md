@@ -44,28 +44,26 @@ In order to run this project, you need:
 ### Setup
 
 1. Clone the repository.
-
-```bash
 git clone https://github.com/WalidAmmarAli/restaurant-api.git
-```bash
 
 2. Navigate to the project directory.
 cd restaurant-api
 
-Install
+3. Build the Docker image.
+  docker build -t restaurant-api .
 
+4.Once the image is built, you can use Docker Compose to run the container.
+docker-compose up -d
+
+5.Access the API endpoints using Swagger.
+localhost:8080/swagger-ui/index.html
+
+Install
 No additional installation steps are required as the dependencies are managed by Gradle.
 Usage
 
-Build the project.
-
-./gradlew build
-    Run the project.
-./gradlew bootRun
-    Access the API endpoints as described in the project documentation.
 Run tests
 To run tests, execute the following command:
-
 ./gradlew test
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
