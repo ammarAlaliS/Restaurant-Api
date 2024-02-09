@@ -47,16 +47,27 @@ git clone https://github.com/ammarAlaliS/Restaurant-Api.git
 2. Navigate to the project directory.
 cd restaurant-api
 
-3. Build the Docker image.
-  docker build -t restaurant-api .
+3. Build the Docker images.
+  docker build compose build
 
 4. Once the image is built, you can use Docker Compose to run the container.
-docker-compose up -d
+docker compose up 
 
 5. Access the API endpoints using Swagger.
 localhost:8080/swagger-ui/index.html
 
 No additional installation steps are required as the dependencies are managed by Gradle.
+
+<h1>OBJETIVE</h1>
+<ul>
+  <li>Create a new reservation</li>
+  <li>Implement methods to perform queries and updates in the database</li>
+  <li>Get reservation information by ID</li>
+  <li>List all reservations made</li>
+  <li>Cancel a reservation</li>
+  <li>List all menu dishes</li>
+  <li>Get dish information by ID</li>
+</ul>
 
 
 To run tests, execute the following command:
