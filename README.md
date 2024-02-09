@@ -1,8 +1,5 @@
 <a name="readme-top"></a>
 
-  <h1><b>Restaurant Api</b></h1>
-
-
 # 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -18,7 +15,7 @@
 - [📝 License](#license)
 
 
-# 📖 [Portafolio] <a name="about-project"></a>
+# 📖 [API Restaurant Backend] <a name="about-project"></a>
 
 
 **Portafolio** is my web page to show all my project.
