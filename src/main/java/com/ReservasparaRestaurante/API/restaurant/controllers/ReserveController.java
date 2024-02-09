@@ -1,13 +1,13 @@
-package com.ReservasparaRestaurante.API.restaurant.controller;
+package com.ReservasparaRestaurante.API.restaurant.controllers;
 
-import com.ReservasparaRestaurante.API.restaurant.entities.MenuEntity;
+import com.ReservasparaRestaurante.API.restaurant.dto.reserve.CreateReserveDto;
+import com.ReservasparaRestaurante.API.restaurant.dto.reserve.CreateReserveDtoToUpdate;
 import com.ReservasparaRestaurante.API.restaurant.entities.ReserveEntity;
 import com.ReservasparaRestaurante.API.restaurant.services.ReserveService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,15 +21,15 @@ public class ReserveController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createNewReservation(@RequestBody ReserveEntity request) {
+    public ResponseEntity<?> createNewReservation(@RequestBody CreateReserveDto request) {
         try {
             ReserveEntity newReservation = reserveService.createNewReservation(
                     request.getCustomerName(),
                     request.getCustomerNumber(),
                     request.getDateReserve(),
-                    request.getReservationStatus(),
-                    request.getState(),
-                    request.getMenuEntity()
+                    true,
+                    "COMPLETED",
+                    null
             );
             return new ResponseEntity<>(newReservation, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -54,7 +54,7 @@ public class ReserveController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<?> updateReservationById(@RequestBody ReserveEntity request, @PathVariable Long id) {
+    public ResponseEntity<?> updateReservationById(@RequestBody CreateReserveDtoToUpdate request, @PathVariable Long id) {
         try {
             ReserveEntity updatedReservation = reserveService.updateById(request, id);
             return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
@@ -62,4 +62,14 @@ public class ReserveController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-}
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<String> deleteReservation(@PathVariable("id") Long id) {
+        try {
+            String reservationDeleted = reserveService.deleteReservationById(id);
+            return ResponseEntity.ok(reservationDeleted);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }}
+
+

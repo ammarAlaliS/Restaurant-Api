@@ -8,6 +8,6 @@ WORKDIR /app
 COPY build/libs/*.jar app.jar
 
 # Expone el puerto 8080 en el contenedor
-EXPOSE 6060
+EXPOSE 7000
 # Comando para ejecutar la aplicación cuando se inicie el contenedor
 CMD ["java", "-jar", "app.jar"]

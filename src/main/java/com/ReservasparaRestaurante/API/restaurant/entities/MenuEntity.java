@@ -26,17 +26,15 @@ public class MenuEntity {
     @Column(name = "state")
     private boolean state;
 
-    // Getter y Setter para menuDinnerEntities
     @Getter
     @OneToMany(mappedBy = "menuEntity")
     private List<MenuDinnerEntity> menuDinnerEntities;
 
-    // Constructor vacío requerido por JPA
     public MenuEntity() {
         this.menuDinnerEntities = new ArrayList<>();
     }
 
-    // Constructor con todos los campos excepto el idMenu
+
     public MenuEntity(String name, double price, boolean state, List<MenuDinnerEntity> menuDinnerEntities) {
         this.name = name;
         this.price = price;
@@ -44,12 +42,4 @@ public class MenuEntity {
         this.menuDinnerEntities = menuDinnerEntities;
     }
 
-    // Getter y Setter para idMenu
-    public Long getIdMenu() {
-        return idMenu;
-    }
-
-    public void setIdMenu(Long idMenu) {
-        this.idMenu = idMenu;
-    }
 }

@@ -1,11 +1,10 @@
 package com.ReservasparaRestaurante.API.restaurant.services;
 
-import com.ReservasparaRestaurante.API.restaurant.entities.MenuDinnerEntity;
+import com.ReservasparaRestaurante.API.restaurant.dto.menu.CreateMenuDto;
 import com.ReservasparaRestaurante.API.restaurant.entities.MenuEntity;
 import com.ReservasparaRestaurante.API.restaurant.entities.DinnerEntity;
 import com.ReservasparaRestaurante.API.restaurant.repository.MenuDinnerRepository;
 import com.ReservasparaRestaurante.API.restaurant.repository.MenuRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,20 +23,11 @@ public class MenuService {
         this.menuDinnerRepository = menuDinnerRepository;
     }
 
-
-    @Transactional
     public MenuEntity createNewMenu(String name, double price, boolean state, List<DinnerEntity> dinners) {
         try {
-            MenuEntity newMenu = new MenuEntity(name, price, state, null); // Passing null for dinnerEntities
-            MenuEntity savedMenu = menuRepository.save(newMenu);
+            var newMenu = new MenuEntity(name, price, state, null);
 
-            for (DinnerEntity dinner : dinners) {
-                MenuDinnerEntity menuDinner = new MenuDinnerEntity();
-                menuDinner.setMenuEntity(savedMenu);
-                menuDinner.setDinnerEntity(dinner);
-                menuDinnerRepository.save();
-            }
-            return savedMenu;
+            return menuRepository.save(newMenu);
         } catch (Exception e) {
             throw new IllegalStateException("Error creating the menu", e);
         }
@@ -59,12 +49,10 @@ public class MenuService {
             throw new IllegalStateException("Error fetching the menu with ID: " + id, e);
         }
     }
-
-    public MenuEntity updateMenu(MenuEntity request, Long id) {
+    public MenuEntity updateMenu(CreateMenuDto request, Long id) {
         try {
             MenuEntity existingMenu = menuRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Menu not found with ID: " + id));
-
             existingMenu.setName(request.getName());
             existingMenu.setPrice(request.getPrice());
             existingMenu.setState(request.isState());
@@ -74,5 +62,20 @@ public class MenuService {
             throw new IllegalStateException("Error updating the menu with ID: " + id, e);
         }
     }
+
+    public String deleteMenuById(Long id) {
+        try {
+            Optional<MenuEntity> menuOptional = menuRepository.findById(id);
+
+            if (menuOptional.isEmpty()) {
+                return "Menu does not exist";
+            }
+            menuRepository.deleteById(id);
+            return "Menu deleted successfully";
+        } catch (Exception e) {
+            throw new IllegalStateException("Error deleting menu: " + e.getMessage());
+        }
+    }
+
 }
 

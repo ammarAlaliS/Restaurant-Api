@@ -1,5 +1,6 @@
 package com.ReservasparaRestaurante.API.restaurant.services;
 
+import com.ReservasparaRestaurante.API.restaurant.dto.reserve.CreateReserveDtoToUpdate;
 import com.ReservasparaRestaurante.API.restaurant.entities.MenuEntity;
 import com.ReservasparaRestaurante.API.restaurant.entities.ReserveEntity;
 import com.ReservasparaRestaurante.API.restaurant.repository.ReservaRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +23,7 @@ public class ReserveService {
         this.menuService = menuService;
     };
 
-    public ReserveEntity createNewReservation(String customerName, int customerNumber, LocalDate dateReservation, boolean reservationStatus, String state, MenuEntity menuEntity) {
+    public ReserveEntity createNewReservation(String customerName, int customerNumber, Date dateReservation, boolean reservationStatus, String state, MenuEntity menuEntity) {
         try {
             if (customerName == null || customerName.isEmpty()) {
                 throw new IllegalArgumentException("The customer name is required.");
@@ -33,7 +35,7 @@ public class ReserveService {
                 throw new IllegalArgumentException("The number of people must be greater than zero.");
             }
 
-            ReserveEntity newReservation = new ReserveEntity
+            var newReservation = new ReserveEntity
                     (customerName,
                      customerNumber,
                      dateReservation,
@@ -46,8 +48,7 @@ public class ReserveService {
             } else {
                 newReservation.complete();
             }
-            ReserveEntity savedReservation = reservaRepository.save(newReservation);
-            return savedReservation;
+            return reservaRepository.save(newReservation);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error creating the reservation: " + e.getMessage());
         }
@@ -68,31 +69,18 @@ public class ReserveService {
 
             if (result.isPresent()) {
                 return result.get();
-            } else {
-                return "No reservation exists with the specified ID.";
             }
+                return "No reservation exists with the specified ID.";
         } catch (Exception e) {
             throw new IllegalArgumentException("An error occurred while fetching the reservation.", e);
         }
     }
 
-    public ReserveEntity updateById(ReserveEntity request, Long id) {
+    public ReserveEntity updateById(CreateReserveDtoToUpdate request, Long id) {
         try {
-
             if (request == null) {
                 throw new IllegalArgumentException("Request cannot be null.");
             }
-
-            if (request.getCustomerName() == null || request.getCustomerName().isEmpty()) {
-                throw new IllegalArgumentException("The customer name is required.");
-            }
-            if (request.getDateReserve() == null) {
-                throw new IllegalArgumentException("The reservation date is required.");
-            }
-            if (request.getCustomerNumber() <= 0) {
-                throw new IllegalArgumentException("The number of people must be greater than zero.");
-            }
-
             ReserveEntity reserve = reservaRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Reservation not found with id: " + id));
 
@@ -101,7 +89,6 @@ public class ReserveService {
             reserve.setDateReserve(request.getDateReserve());
             reserve.setReservationStatus(request.getReservationStatus());
             reserve.setState(request.getState());
-            reserve.setMenuEntity(request.getMenuEntity());
 
 
             if (!request.getReservationStatus()) {
@@ -111,15 +98,25 @@ public class ReserveService {
             }
 
 
-            ReserveEntity savedReservation = reservaRepository.save(reserve);
-
-            return savedReservation;
+            return reservaRepository.save(reserve);
         } catch (Exception e) {
 
             throw new IllegalArgumentException("Error updating reservation: " + e.getMessage());
         }
     }
 
+    public String deleteReservationById(Long id) {
+        try {
+            Optional<ReserveEntity> reservationOptional = reservaRepository.findById(id);
 
+            if (reservationOptional.isEmpty()) {
+                return "Reservation does not exist";
+            }
 
+            reservaRepository.deleteById(id);
+            return "Reservation deleted successfully";
+        } catch (Exception e) {
+            return "Error deleting reservation: " + e.getMessage();
+        }
+    }
 }
