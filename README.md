@@ -15,79 +15,66 @@
 - [📝 License](#license)
 
 
-# 📖 [API Restaurant Backend] <a name="about-project"></a>
+# 📖 API Restaurant Backend <a name="about-project"></a>
 
+This project is an API developed in Java 17 (or 11), Spring Boot, and Gradle for managing restaurant reservations, including a menu system connected to an SQL database.
 
-**Portafolio** is my web page to show all my project.
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
 
-<details>
-<summary>Github</summary>
-  <ul>
-    <li><a href="https://github.com/">Github</a></li>
-  </ul>
-</details>
-
-<details>
-<summary>Html</summary>
-  <ul>
-    <li><a href="https://html.com/">Html</a></li>
-  </ul>
-</details>
-
-<details>
-<summary>Css</summary>
-  <ul>
-    <li><a href="https://developer.mozilla.org/es/docs/Web/CSS">Css</a></li>
-  </ul>
-</details>
-
-
+- Java 17 (or 11)
+- Spring Boot
+- Gradle
+- SQL Database (e.g., MySQL)
+- Docker
+- Swagger
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-
-
 ### Prerequisites
 
-In order to run this project you need:
+In order to run this project, you need:
 
-
+- Java 17 (or 11) installed
+- Docker installed
 
 ### Setup
 
+1. Clone the repository.
 
-### Install
+```bash
+git clone https://github.com/WalidAmmarAli/restaurant-api.git
 
+2. Navigate to the project directory.
+cd restaurant-api
 
+Install
 
+No additional installation steps are required as the dependencies are managed by Gradle.
+Usage
 
-### Usage
+Build the project.
 
+./gradlew build
+    Run the project.
+./gradlew bootRun
+    Access the API endpoints as described in the project documentation.
+Run tests
+To run tests, execute the following command:
 
+./gradlew test
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+👥 Authors <a name="authors"></a>
 
-### Run tests
+    GitHub: @WalidAmmarAli
+    Twitter: @AmmarAli3111
+    LinkedIn: Ammar Ali
 
+📝 License <a name="license"></a>
 
-
-
-### Deployment
-
-
-
-👤 **Author1**
-
-- GitHub: [@WalidAmmarAli](https://github.com/WalidAmmarAli)
-- Twitter: [@AmmarAli3111]()
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/ammar-ali-384625262/)
-
-## 📝 License <a name="license"></a>
-
-This project is [MIT](./LICENSE) licensed.
-
+This project is MIT licensed.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
