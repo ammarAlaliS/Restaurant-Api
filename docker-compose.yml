@@ -5,14 +5,12 @@ services:
     image: mysql:latest
     restart: always
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - test_vol:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: restaurant_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
 
   backend:
     build: .
@@ -24,6 +22,7 @@ services:
       - test_vol:/app/data
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/restaurant_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_DATASOURCE_PASSWORD: "root_password"
 
+volumes:
+  test_vol:
