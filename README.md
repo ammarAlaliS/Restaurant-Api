@@ -47,6 +47,7 @@ In order to run this project, you need:
 
 ```bash
 git clone https://github.com/WalidAmmarAli/restaurant-api.git
+```bash
 
 2. Navigate to the project directory.
 cd restaurant-api
